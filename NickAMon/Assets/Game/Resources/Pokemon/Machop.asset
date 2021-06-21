@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57016b5bd7f40440c863187fce8ffb05, type: 3}
+  m_Name: Machop
+  m_EditorClassIdentifier: 
+  pokeName: Machop
+  description: A fighting rocky guy
+  frontSprite: {fileID: 21300000, guid: d62d108a2bd9f4fafb338aa2c2798bc5, type: 3}
+  backSprite: {fileID: 21300000, guid: d695e3258f6c24be4bec157c4250aa16, type: 3}
+  type01: 14
+  type02: 6
+  maxHP: 70
+  attack: 80
+  defense: 50
+  spAttack: 35
+  spDefense: 35
+  speed: 45
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 96b656d8bb4d84412a3f154db336f7c9, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 02404f769536243c8bc989e8511da61e, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: ac02d3cb41c924c93a161668255cc0d5, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: 9d68fafc65e8d45a0828d1b116a6b9a3, type: 2}
+    level: 9

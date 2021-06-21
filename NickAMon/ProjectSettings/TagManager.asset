@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Collision
+  - Enemy
+  - Player
+  - NPC
+  - Objects
+  - LongGrass
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ForeGround
+    uniqueID: 2601570121
+    locked: 0
+  - name: Grass
+    uniqueID: 372273465
+    locked: 0
+  - name: NPC
+    uniqueID: 3731121301
+    locked: 0
+  - name: Player
+    uniqueID: 466004653
     locked: 0

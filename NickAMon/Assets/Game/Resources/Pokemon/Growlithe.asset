@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57016b5bd7f40440c863187fce8ffb05, type: 3}
+  m_Name: Growlithe
+  m_EditorClassIdentifier: 
+  pokeName: Growlithe
+  description: A cute doggy pokemon
+  frontSprite: {fileID: 21300000, guid: a3a6514ddddaf4e338656014786175d5, type: 3}
+  backSprite: {fileID: 21300000, guid: 1fbd540e3cc2b4590a432e6c5b8df421, type: 3}
+  type01: 5
+  type02: 6
+  maxHP: 58
+  attack: 70
+  defense: 49
+  spAttack: 75
+  spDefense: 55
+  speed: 65
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: bfe839f412cd34a9db7e24387a8b5190, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 55bf2ff81978f4edabc4b7654d8c57b7, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: b18e34e2699f640bc82bf5c6d34c84ae, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 9836ce83eb2574e598d29fc4920f69c1, type: 2}
+    level: 9
