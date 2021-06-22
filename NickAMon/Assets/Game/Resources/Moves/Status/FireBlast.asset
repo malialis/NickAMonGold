@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f79bde84ec77c4634bd89caa9809cacb, type: 3}
-  m_Name: Growl
+  m_Name: FireBlast
   m_EditorClassIdentifier: 
-  moveName: Growl
-  description: Like a scream but angry
-  type: 1
-  power: 1
-  accuracy: 100
-  movePoints: 40
+  moveName: Fire Blast
+  description: Burn baby burn
+  type: 5
+  power: 110
+  accuracy: 90
+  movePoints: 25
+  category: 1
+  effects:
+    boosts:
+    - stat: 0
+      boost: 0
+  target: 0

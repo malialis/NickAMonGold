@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57016b5bd7f40440c863187fce8ffb05, type: 3}
+  m_Name: Metang
+  m_EditorClassIdentifier: 
+  pokeName: Metang
+  description: A Metanable Pokemon
+  frontSprite: {fileID: 21300000, guid: 2f46902a8ac3446afa56e5a4dd63d7d3, type: 3}
+  backSprite: {fileID: 21300000, guid: 5a81c383bb9ee4718b885f4f63c1a955, type: 3}
+  type01: 17
+  type02: 13
+  maxHP: 75
+  attack: 85
+  defense: 110
+  spAttack: 85
+  spDefense: 95
+  speed: 75
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 96b656d8bb4d84412a3f154db336f7c9, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 1071d7147f6d9438f827cfac36ae2aee, type: 2}
+    level: 2
+  - moveBase: {fileID: 11400000, guid: 55bf2ff81978f4edabc4b7654d8c57b7, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: 9836ce83eb2574e598d29fc4920f69c1, type: 2}
+    level: 5

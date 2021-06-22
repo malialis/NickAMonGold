@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f79bde84ec77c4634bd89caa9809cacb, type: 3}
-  m_Name: VineWhip
+  m_Name: Gust
   m_EditorClassIdentifier: 
-  moveName: VineWhip
-  description: Whip them with a Vine
-  type: 9
-  power: 15
-  accuracy: 25
-  movePoints: 15
+  moveName: Gust
+  description: A gust o Wind
+  type: 7
+  power: 40
+  accuracy: 100
+  movePoints: 35
   category: 1
   effects:
     boosts: []
+    status: 0
   target: 0

@@ -139,6 +139,15 @@ public enum PokemonType
     Legendary
 }
 
+public enum Stat
+{
+    Attack,
+    Defense,
+    SpAttack,
+    SpDefense,
+    Speed
+}
+
 public class TypeChart
 {
     static float[][] chart =
@@ -175,6 +184,7 @@ public class TypeChart
 
         return chart[row][col];
     }
+
 
 
 }
