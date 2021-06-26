@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class ConditionsDB 
 {
+    public static void Init()
+    {
+        foreach(var kvp in Conditions)
+        {
+            //kvp means key value pair
+            var conditionId = kvp.Key;
+            var condition = kvp.Value;
+
+            condition.Id = conditionId;
+        }
+    }
+
     public static Dictionary<ConditionID, Condition> Conditions { get; set; } = new Dictionary<ConditionID, Condition>()
     {
         {
@@ -100,6 +112,44 @@ public class ConditionsDB
 
                 }
             }
+        },
+
+        //volatile statuses
+
+        {
+            ConditionID.Confusion,
+            new Condition()
+            {
+                Name = "Confusion",
+                StartMessage = "is confused!",
+                OnStart = (Pokemon pokemon) =>
+                {
+                    //sleep for 1 - 4 turns
+                    pokemon.VolatileStatusTime = Random.Range(1, 5);
+                    Debug.Log($"Will be Confused for {pokemon.StatusTime} moves");
+                },
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if(pokemon.VolatileStatusTime <= 0)
+                    {
+                        pokemon.CureVolatileStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.PokeName} has Kicked out of the Confusion!");
+                        return true;
+                    }
+                    pokemon.VolatileStatusTime--;
+
+                    //50% chance to do a move
+                    if(Random.Range(1, 3) == 1)
+                        return true;
+
+                    //hurt by confusion
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.PokeName} is Confused!");
+                    pokemon.UpdateHP(pokemon.MaxHP / 8);
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.PokeName} Hurt itself due to Confusion!");
+                    return false;
+
+                }
+            }
         }
 
     };
@@ -115,5 +165,6 @@ public enum ConditionID
     BRN, //Burn
     SLP, //Sleep
     PAR, //Paralized
-    FRZ //Frozen
+    FRZ, //Frozen
+    Confusion
 }

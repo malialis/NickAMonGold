@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokeName: Butterfree
   description: A butterfly like pokemon
-  frontSprite: {fileID: 21300000, guid: 247740551e3e24cd4b0f6ace5ce9b5af, type: 3}
-  backSprite: {fileID: 21300000, guid: c38e307c8ffc548f0acfb82f38b5ed1a, type: 3}
+  frontSprite: {fileID: 21300000, guid: 37e44c436d36c453dac9f8097bff4355, type: 3}
+  backSprite: {fileID: 21300000, guid: 57a8a5d8ee0384677a63763207d115d3, type: 3}
+  iconSprite: {fileID: 21300000, guid: 2b2c8f2f3f106432ca5c441d2e4ac0ef, type: 3}
   type01: 2
   type02: 7
   maxHP: 60

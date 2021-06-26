@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokeName: Metang
   description: A Metanable Pokemon
-  frontSprite: {fileID: 21300000, guid: 2f46902a8ac3446afa56e5a4dd63d7d3, type: 3}
-  backSprite: {fileID: 21300000, guid: 5a81c383bb9ee4718b885f4f63c1a955, type: 3}
+  frontSprite: {fileID: 21300000, guid: d09bf0940f32049d79bdaf447e3c7820, type: 3}
+  backSprite: {fileID: 21300000, guid: 61e7ce978b2624ce982f00e7cfbfb803, type: 3}
+  iconSprite: {fileID: 21300000, guid: beeafd7b2e491496dab61872c1eb8b51, type: 3}
   type01: 17
   type02: 13
   maxHP: 75

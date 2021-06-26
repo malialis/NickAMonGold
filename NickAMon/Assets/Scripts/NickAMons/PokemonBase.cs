@@ -12,6 +12,7 @@ public class PokemonBase : ScriptableObject
 
     [SerializeField] Sprite frontSprite;
     [SerializeField] Sprite backSprite;
+    [SerializeField] Sprite iconSprite;
 
     [SerializeField] PokemonType type01;
     [SerializeField] PokemonType type02;
@@ -46,6 +47,11 @@ public class PokemonBase : ScriptableObject
     public Sprite BackSprite
     {
         get { return backSprite; }
+    }
+
+    public Sprite IconSprite
+    {
+        get { return iconSprite; }
     }
 
     public PokemonType Type01
@@ -145,7 +151,11 @@ public enum Stat
     Defense,
     SpAttack,
     SpDefense,
-    Speed
+    Speed,
+
+    //these are for boosts for MoveAccuracy
+    Accuracy,
+    Evasion
 }
 
 public class TypeChart

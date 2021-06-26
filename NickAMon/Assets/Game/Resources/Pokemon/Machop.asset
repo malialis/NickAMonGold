@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokeName: Machop
   description: A fighting rocky guy
-  frontSprite: {fileID: 21300000, guid: d62d108a2bd9f4fafb338aa2c2798bc5, type: 3}
-  backSprite: {fileID: 21300000, guid: d695e3258f6c24be4bec157c4250aa16, type: 3}
+  frontSprite: {fileID: 21300000, guid: e3dfa803794b942b299e70d4064f4faf, type: 3}
+  backSprite: {fileID: 21300000, guid: e4965407649da4733a77f59d6cd5839a, type: 3}
+  iconSprite: {fileID: 21300000, guid: a9d6b8f69b3e844a4a7b4e99876c9eaf, type: 3}
   type01: 14
   type02: 6
   maxHP: 70

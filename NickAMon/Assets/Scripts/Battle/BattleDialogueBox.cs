@@ -86,6 +86,12 @@ public class BattleDialogueBox : MonoBehaviour
         }
         mpText.text = $"MP {move.MovePoints} / {move.Base.MovePoints}";
         moveTypeText.text = move.Base.Type.ToString();
+
+        if (move.MovePoints == 0)
+            mpText.color = Color.red;
+        else
+            mpText.color = Color.black;
+
     }
 
     public void SetMoveNames(List<Move> moves)

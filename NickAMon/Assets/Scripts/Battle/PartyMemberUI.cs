@@ -20,7 +20,7 @@ public class PartyMemberUI : MonoBehaviour
         nameText.text = pokemon.Base.PokeName;
         levelText.text = "Lvl:" + pokemon.Level;
         hpBar.SetHP((float)pokemon.HP / pokemon.MaxHP);
-        pokeImage.sprite = pokemon.Base.FrontSprite;
+        pokeImage.sprite = pokemon.Base.IconSprite;
     }
 
     public void SetSelected(bool selected)

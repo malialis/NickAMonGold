@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pokeName: Growlithe
   description: A cute doggy pokemon
-  frontSprite: {fileID: 21300000, guid: a3a6514ddddaf4e338656014786175d5, type: 3}
-  backSprite: {fileID: 21300000, guid: 1fbd540e3cc2b4590a432e6c5b8df421, type: 3}
+  frontSprite: {fileID: 21300000, guid: 0c704286f456b4e9794fa319dfde256f, type: 3}
+  backSprite: {fileID: 21300000, guid: 664664c5e962544ecbb125b9dbbc92f1, type: 3}
+  iconSprite: {fileID: 21300000, guid: faf5cdd56a6cf43299f87f1aa1e040ef, type: 3}
   type01: 5
   type02: 6
   maxHP: 58

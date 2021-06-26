@@ -15,7 +15,8 @@ MonoBehaviour:
   pokeName: Charmander
   description: A firey lizard
   frontSprite: {fileID: 21300000, guid: cd259d9d4f8ba2749a16d1cc64d46bec, type: 3}
-  backSprite: {fileID: 21300000, guid: ade6afd9cbd5c1740bf6046d9a18b97d, type: 3}
+  backSprite: {fileID: 21300000, guid: ed8e1d9976a1fd94d961840d8f6e7764, type: 3}
+  iconSprite: {fileID: 21300000, guid: 17748bd4b6de94d8486823adb3ef1f9b, type: 3}
   type01: 5
   type02: 3
   maxHP: 49

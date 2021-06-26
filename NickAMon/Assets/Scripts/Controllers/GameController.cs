@@ -7,21 +7,49 @@ public enum GameState
 {
     FreeRoam,
     Battle,
-    Interacting
+    Interacting,
+    Dialog
 }
 
 public class GameController : MonoBehaviour
 {
     private GameState state;
 
+    private void Awake()
+    {
+        //ConditionsDB.Init();
+        Instance = this;
+        ConditionsDB.Init();
+       // buddy = FindObjectOfType<BuddyController>().GetComponent<BuddyController>();
+    }
+
     [SerializeField] private PlayerController playerController;
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private Camera worldCamera;
+    private BuddyController buddy;
+
+    private GameState stateBeforePause;
+
+   // private TrainerController trainer;
+    public static GameController Instance { get; private set; }
+    public BuddyController Buddy { get => buddy; set => buddy = value; }
+    public PlayerController PlayerController { get => playerController; set => playerController = value; }
 
     private void Start()
     {
         playerController.OnEncountered += StartBattle;
         battleSystem.OnBattleOver += EndBattle;
+
+        DialogManager.Instance.OnShowDialog += () =>
+        {
+            state = GameState.Dialog;
+        };
+
+        DialogManager.Instance.OnCloseDialog += () =>
+        {
+            if(state == GameState.Dialog)
+                state = GameState.FreeRoam;
+        };
     }
 
     private void Update()
@@ -34,6 +62,13 @@ public class GameController : MonoBehaviour
         {
             battleSystem.HandleUpdate();
         }
+        else if(state == GameState.Dialog)
+        {
+            DialogManager.Instance.HandleUpdate();
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+            playerController.GetComponent<PokemonParty>().HealParty();
     }
 
     private void StartBattle()

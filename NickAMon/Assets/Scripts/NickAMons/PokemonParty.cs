@@ -22,6 +22,21 @@ public class PokemonParty : MonoBehaviour
         return pokemons.Where(x => x.HP > 0).FirstOrDefault();
     }
 
+    public void HealParty()
+    {
+        foreach (Pokemon mon in pokemons)
+        {
+            mon.CureStatus();
+            mon.CureVolatileStatus();
+            mon.RestoreFullHP();
+            //mon.ResetStatBoost();
+
+            foreach (Move mov in mon.Moves)
+            {
+                mov.MovePoints = mov.Base.MovePoints;
+            }
+        }
+    }
 
 
 }

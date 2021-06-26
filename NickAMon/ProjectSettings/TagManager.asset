@@ -17,8 +17,8 @@ TagManager:
   - NPC
   - Objects
   - LongGrass
-  - 
-  - 
+  - Jumpable
+  - Interactable
   - 
   - 
   - 
