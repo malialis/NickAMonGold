@@ -5,22 +5,22 @@ using NickAMon.Controller;
 
 public class BuddyController : MonoBehaviour
 {
-    private PlayerController character;
+    private Character character;
 
-   /* public void Follow(Vector3 movePosition)
+   public void Follow(Vector3 movePosition)
     {
         Vector2 moveVector = movePosition - this.transform.position;
         moveVector = moveVector.Generalize();
 
         if (!character.IsMoving)
         {
-            StartCoroutine(this.character.Move(moveVector, null, true));
+            StartCoroutine(this.character.Move(moveVector, null));
         }
     }
-   */
+  
     private void Start()
     {
-        character = GetComponent<PlayerController>();
+        character = GetComponent<Character>();
         this.transform.position = GameController.Instance.PlayerController.transform.position;
     }
 
@@ -34,3 +34,4 @@ public class BuddyController : MonoBehaviour
         character.HandleUpdate();
     }
 }
+  

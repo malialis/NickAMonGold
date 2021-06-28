@@ -17,10 +17,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        //ConditionsDB.Init();
         Instance = this;
         ConditionsDB.Init();
-       // buddy = FindObjectOfType<BuddyController>().GetComponent<BuddyController>();
+        buddy = FindObjectOfType<BuddyController>().GetComponent<BuddyController>();
     }
 
     [SerializeField] private PlayerController playerController;
