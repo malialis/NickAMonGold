@@ -3,87 +3,105 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NickAMon.Controller
+public class PlayerController : MonoBehaviour
 {
-    public class PlayerController: MonoBehaviour
-    {        
-        [SerializeField] private int encounterRate = 25;
+    //[SerializeField] private int encounterRate = 25;
 
-        public event Action OnEncountered;
-        public event Action OnEncounteredLedge;
+    public event Action OnEncountered;
+    public event Action OnEncounteredLedge;
+    public event Action<Collider2D> OnEnterTrainersView;
 
-        private Vector2 input;        
-        private Character character;
-        public Vector3 playerChange;
+    private Vector2 input;
+    private Character character;
 
-        private void Awake()
+    [SerializeField] private Sprite sprite; //player image
+    [SerializeField] private string playerName; //player name
+
+    private void Awake()
+    {
+        character = GetComponent<Character>();
+    }
+
+    public void HandleUpdate()
+    {
+        if (!character.IsMoving)
         {
-            character = GetComponent<Character>();
-        }
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
 
-        public void HandleUpdate()
-        {
-            if (!character.IsMoving)
+            if (input.x != 0) input.y = 0; // removes diagonal movement
+
+            if (input != Vector2.zero)
             {
-                input.x = Input.GetAxisRaw("Horizontal");
-                input.y = Input.GetAxisRaw("Vertical");
-
-                if (input.x != 0) input.y = 0; // removes diagonal movement
-
-                if(input != Vector2.zero)
-                {
-                    GameController.Instance.Buddy.Follow(GameController.Instance.PlayerController.transform.position);
-                    StartCoroutine(character.Move(input, CheckForEncounters));                  
-                }
-            }
-
-            character.HandleUpdate();
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                Interact();
+                GameController.Instance.Buddy.Follow(GameController.Instance.PlayerController.transform.position);
+                StartCoroutine(character.Move(input, OnMoveOver));
             }
         }
 
-        private void Interact()
-        {
-            var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
-            var interactPos = transform.position + facingDir;
-            Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
+        character.HandleUpdate();
 
-            var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.Instance.InteractableLayer);
-            if(collider != null)
-            {
-                collider.GetComponent<Interactable>()?.Interact(transform);
-            }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Interact();
+            CheckForLedges();
         }
+    }
 
-        private void CheckForEncounters()
+    private void OnMoveOver()
+    {
+        var colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, character.OffsetY), 0.2f, GameLayers.Instance.TriggerableLayers);
+
+        foreach(var collider in colliders)
         {
-            if (Physics2D.OverlapCircle(transform.position, 0.12f, GameLayers.Instance.GrassLayer) != null)
+            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if(triggerable != null)
             {
-                if (UnityEngine.Random.Range(1, 101) <= encounterRate)
-                {
-                    Debug.Log("Encountered a pokemon");
-                    character.Animator.IsMoving = false;
-                    OnEncountered();
-                }
-            }
-        }
-
-        private void CheckForLedges()
-        {
-            var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
-            var interactPos = transform.position + facingDir;
-            Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
-
-            var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.Instance.LedgeLayer);
-            if (collider != null)
-            {
-                collider.GetComponent<Ledges>()?.JumpDirection();
+                character.Animator.IsMoving = false;
+                triggerable.OnPlayerTriggered(this);
+                break;
             }
         }
 
     }
+
+    private void Interact()
+    {
+        var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
+        var interactPos = transform.position + facingDir;
+        Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
+
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.Instance.InteractableLayer);
+        if (collider != null)
+        {
+            collider.GetComponent<Interactable>()?.Interact(transform);
+        }
+    }
+
+    private void CheckForLedges()
+    {
+        var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
+        var interactPos = transform.position + facingDir;
+        Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
+
+        var collider = Physics2D.OverlapCircle(interactPos, 0.5f, GameLayers.Instance.LedgeLayer);
+        if (collider != null)
+        {
+            collider.GetComponent<Interactable>()?.Interact(transform);
+
+        }
+    }
+
+    public string PlayerName
+    {
+        get => playerName;
+    }
+
+    public Sprite PlayerSprite
+    {
+        get => sprite;
+    }
+    public Character Character => character;
+
 }
+
 

@@ -18,11 +18,15 @@ MonoBehaviour:
   backSprite: {fileID: 21300000, guid: 0610fab66b4b74eec9d9651ac26780bd, type: 3}
   iconSprite: {fileID: 21300000, guid: 5d2b8487d27dd4236bd8dd3a15d0dc05, type: 3}
   type01: 13
-  type02: 12
-  maxHP: 0
-  attack: 0
-  defense: 0
-  spAttack: 0
-  spDefense: 0
-  speed: 0
+  type02: 1
+  maxHP: 115
+  attack: 45
+  defense: 20
+  spAttack: 45
+  spDefense: 25
+  speed: 20
+  expYield: 68
+  growthRate: 0
+  catchRate: 170
+  statusBonus: 0
   learnableMoves: []

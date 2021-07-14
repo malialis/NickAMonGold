@@ -12,11 +12,14 @@ public class BattleDialogueBox : MonoBehaviour
     [SerializeField] private GameObject actionSelector;
     [SerializeField] private GameObject moveSelector;
     [SerializeField] private GameObject moveDetails;
+    [SerializeField] private GameObject choiceBox;
 
     [SerializeField] private List<Text> actionText;
     [SerializeField] private List<Text> moveText;
     [SerializeField] private Text mpText;
     [SerializeField] private Text moveTypeText;
+    [SerializeField] private Text yesText;
+    [SerializeField] private Text noText;
 
     [SerializeField] private Color highlightColor;
 
@@ -34,7 +37,7 @@ public class BattleDialogueBox : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(1f / lettersPerSecond);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
     }
 
     public void EnableDialogueText(bool enabled)
@@ -56,6 +59,12 @@ public class BattleDialogueBox : MonoBehaviour
 
     }
 
+    public void EnableChoiceSelector(bool enabled)
+    {
+        choiceBox.SetActive(enabled);
+
+    }
+
     public void UpdateActionSelection(int selectionAction)
     {
         for (int i = 0; i < actionText.Count; i++)
@@ -68,6 +77,20 @@ public class BattleDialogueBox : MonoBehaviour
             {
                 actionText[i].color = Color.black;
             }
+        }
+    }
+
+    public void UpdateChoiceBoxSelection(bool yesSelected)
+    {
+        if (yesSelected)
+        {
+            yesText.color = highlightColor;
+            noText.color = Color.black;
+        }
+        else
+        {
+            yesText.color = Color.black;
+            noText.color = highlightColor;
         }
     }
 
@@ -89,6 +112,8 @@ public class BattleDialogueBox : MonoBehaviour
 
         if (move.MovePoints == 0)
             mpText.color = Color.red;
+        else if (move.MovePoints <= move.Base.MovePoints / 2)
+            mpText.color = new Color(1f, 0.647f, 0f);
         else
             mpText.color = Color.black;
 

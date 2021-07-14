@@ -21,10 +21,19 @@ public class Pokemon
     public Condition VolatileStatus { get; private set; }
     public int StatusTime { get; set; }
     public int VolatileStatusTime { get; set; }
-    public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
+    public Queue<string> StatusChanges { get; private set; }
     public event Action OnStatusChanged;
     public int HP { get; set; }
+    public int Exp { get; set; }
     public bool HpChanged { get; set; }
+
+    public Pokemon(PokemonBase pBase, int pLevel)
+    {
+        _base = pBase;
+        level = pLevel;
+
+        Init();
+    }
 
     public void Init()
     {
@@ -36,16 +45,22 @@ public class Pokemon
             {
                 Moves.Add(new Move(move.Base));
             }
-            if (Moves.Count >= 4)
+            if (Moves.Count >= PokemonBase.MaxNumberOfMoves)
                 break;
         }
+
+        Exp = Base.GetExpForLevel(Level);
+
         CalculateStats();
         HP = MaxHP;
 
+        StatusChanges = new Queue<string>();
         ResetStatBoost();
         Status = null;
         VolatileStatus = null;
     }
+
+    #region HP
 
     public void UpdateHP(int damage)
     {
@@ -59,7 +74,9 @@ public class Pokemon
         this.HpChanged = true;
     }
 
-    
+    #endregion
+    #region Stats and boosts
+
     private void ResetStatBoost()
     {
         StatBoosts = new Dictionary<Stat, int>()
@@ -157,6 +174,7 @@ public class Pokemon
         //OnStatusChanged?.Invoke();
     }
 
+    #endregion
 
     #region properties yo
 
@@ -223,7 +241,6 @@ public class Pokemon
         return movesWithMP[r];
     }
 
-
     public void OnBattleOver()
     {
         ResetStatBoost();
@@ -254,6 +271,58 @@ public class Pokemon
 
         return canPerformMove;
     }
+
+    public bool CheckForLevelUp()
+    {
+        if(Exp > Base.GetExpForLevel(level + 1))
+        {
+            level++;
+            return true;
+        }
+
+        return false;
+    }
+
+    public void BoostStatsAfterLevelUp()
+    {
+        var oldMaxHp = MaxHP;
+        CalculateStats();
+        var diff = MaxHP - oldMaxHp;
+
+        UpdateHP(-diff);
+    }
+
+    public LearnableMove GetLearnableMovesAtCurrentLevel()
+    {
+        return Base.LearnableMoves.Where(x => x.Level == level).FirstOrDefault();
+    }
+
+    public void LearnMove(LearnableMove moveToLearn)
+    {
+        if (Moves.Count > PokemonBase.MaxNumberOfMoves)
+            return;
+
+        Moves.Add(new Move(moveToLearn.Base));
+    }
+
+    /*
+    public List<LearnableMove> GetLeranableMoveAtCurrentLevel()
+    {
+        List<LearnableMove> copyOfLearnableMoves = Base.LearnableMoves.FindAll(x => x.Level == level);
+        List<LearnableMove> learnableMoves = new List<LearnableMove>();
+
+        foreach (LearnableMove move in copyOfLearnableMoves)
+        {
+            if(Moves.Exists(x => x.Base == move.Base)|| learnableMoves.Exists(x => x.Base == move.Base))
+            {
+                continue;
+            }
+            learnableMoves.Add(move);
+        }
+
+        return learnableMoves;
+    }
+    */
 
 
 }

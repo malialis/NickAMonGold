@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NickAMon.Controller;
 
 public enum GameState
 {
     FreeRoam,
     Battle,
     Interacting,
-    Dialog
+    Dialog,
+    Cutscene,
+    Paused
 }
 
 public class GameController : MonoBehaviour
@@ -29,14 +30,14 @@ public class GameController : MonoBehaviour
 
     private GameState stateBeforePause;
 
-   // private TrainerController trainer;
+    private TrainerController trainer;
     public static GameController Instance { get; private set; }
     public BuddyController Buddy { get => buddy; set => buddy = value; }
     public PlayerController PlayerController { get => playerController; set => playerController = value; }
 
     private void Start()
     {
-        playerController.OnEncountered += StartBattle;
+        playerController.OnEncountered += StartBattle;        
         battleSystem.OnBattleOver += EndBattle;
 
         DialogManager.Instance.OnShowDialog += () =>
@@ -70,8 +71,9 @@ public class GameController : MonoBehaviour
             playerController.GetComponent<PokemonParty>().HealParty();
     }
 
-    private void StartBattle()
+    public void StartBattle()
     {
+        
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
@@ -79,14 +81,59 @@ public class GameController : MonoBehaviour
         var playerParty = playerController.GetComponent<PokemonParty>();
         var wildPokemon = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildPokemon();
 
-        battleSystem.StartBattle(playerParty, wildPokemon);
+        var wildPokemonCopy = new Pokemon(wildPokemon.Base, wildPokemon.Level);
+
+        battleSystem.StartBattle(playerParty, wildPokemonCopy);
+    }
+
+    public void StartTrainerBattle(TrainerController trainer)
+    {
+        this.trainer = trainer;
+        state = GameState.Battle;
+        battleSystem.gameObject.SetActive(true);
+        worldCamera.gameObject.SetActive(false);
+
+        var playerParty = playerController.GetComponent<PokemonParty>();
+        var trainerParty = trainer.GetComponent<PokemonParty>();
+        
+        battleSystem.StartTrainerBattle(playerParty, trainerParty);
     }
 
     private void EndBattle(bool won)
     {
+        if(trainer != null && won == true)
+        {
+            trainer.BattleLost();
+            trainer = null;
+        }
+
         state = GameState.FreeRoam;
         battleSystem.gameObject.SetActive(false);
         worldCamera.gameObject.SetActive(true);
     }
+
+    public void OnEnterTrainersView(TrainerController trainer)
+    {
+        if (trainer != null)
+        {
+            state = GameState.Cutscene;
+            StartCoroutine(trainer.TriggerTrainerBattle(playerController));
+        }
+
+    }
+
+    public void PauseGame(bool pause)
+    {
+        if (pause)
+        {
+            stateBeforePause = state;
+            state = GameState.Paused;
+        }
+        else
+        {
+            state = stateBeforePause;
+        }
+    }
+
 
 }

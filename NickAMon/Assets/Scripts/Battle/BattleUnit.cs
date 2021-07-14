@@ -26,12 +26,12 @@ public class BattleUnit : MonoBehaviour
     {
         image = GetComponent<Image>();
         originalPosition = image.transform.localPosition;
+        originalColor = image.color;
     }
 
     private void Start()
     {
-        originalPosition = image.transform.localPosition;
-        originalColor = image.color;
+        
     }
 
 
@@ -42,7 +42,10 @@ public class BattleUnit : MonoBehaviour
             image.sprite = _Pokemon.Base.BackSprite;
         else
             image.sprite = _Pokemon.Base.FrontSprite;
+
+        hud.gameObject.SetActive(true);
         hud.SetData(pokemon);
+        transform.localScale = new Vector3(1, 1, 1);
         image.color = originalColor;
         PlayEnterAnimation();
     }
@@ -75,6 +78,7 @@ public class BattleUnit : MonoBehaviour
 
         sequence.Append(image.transform.DOLocalMoveX(originalPosition.x, 0.25f));
     }
+
     public void PlayHitAnimation()
     {
         var sequence = DOTween.Sequence();
@@ -91,5 +95,27 @@ public class BattleUnit : MonoBehaviour
         sequence.Join(image.DOFade(0f, 0.5f));
     }
 
+    public IEnumerator PlayCaptureAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.DOFade(0, 1f));
+        sequence.Join(transform.DOLocalMoveY(originalPosition.y + 75f, 1f));
+        sequence.Join(transform.DOScale(new Vector3(0.3f, 0.3f), 1f));
+        yield return sequence.WaitForCompletion();
+    }
+
+    public IEnumerator PlayBreakCaptureAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.DOFade(255f, 1f));
+        sequence.Join(transform.DOLocalMoveY(originalPosition.y, 1f));
+        sequence.Join(transform.DOScale(new Vector3(1f, 1f), 1f));
+        yield return sequence.WaitForCompletion();
+    }
+
+    public void ClearHUD()
+    {
+        hud.gameObject.SetActive(false);
+    }
 
 }

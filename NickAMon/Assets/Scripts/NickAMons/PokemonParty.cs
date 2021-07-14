@@ -38,5 +38,18 @@ public class PokemonParty : MonoBehaviour
         }
     }
 
+    public void AddPokemon(Pokemon newPokemon)
+    {
+        if(pokemons.Count < 6)
+        {
+            pokemons.Add(newPokemon);
+        }
+        else
+        {
+            //transfer to PC
+
+        }
+    }
+
 
 }

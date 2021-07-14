@@ -46,6 +46,7 @@ public class NPCController : MonoBehaviour, Interactable
             state = NPCState.Dialog;
 
             character.LookTowards(initiator.position);
+
             StartCoroutine(DialogManager.Instance.ShowDialog(dialog, () =>
             {
                 state = NPCState.Idle;

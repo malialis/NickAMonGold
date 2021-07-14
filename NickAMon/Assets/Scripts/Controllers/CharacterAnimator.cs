@@ -8,7 +8,12 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] List<Sprite> walkUpSprites;
     [SerializeField] List<Sprite> walkLeftSprites;
     [SerializeField] List<Sprite> walkRightSprites;
+    [SerializeField] FacingDirection defaultDirection = FacingDirection.Down;
 
+    [SerializeField] List<Sprite> fallingDownSprites;
+    [SerializeField] List<Sprite> fallingRightSprites;
+    [SerializeField] List<Sprite> fallingLeftSprites;
+    
     //parameter
     public float MoveX { get; set; }
     public float MoveY { get; set; }
@@ -21,6 +26,11 @@ public class CharacterAnimator : MonoBehaviour
     SpriteAnimator walkUpAnim;
     SpriteAnimator walkLeftAnim;
     SpriteAnimator walkRightAnim;
+
+    //falling anims
+    SpriteAnimator fallingDownAnim;
+    SpriteAnimator fallingLeftAnim;
+    SpriteAnimator fallingRightAnim;
 
     SpriteAnimator currentAnim;
 
@@ -35,6 +45,12 @@ public class CharacterAnimator : MonoBehaviour
         walkUpAnim = new SpriteAnimator(walkUpSprites, spriteRenderer);
         walkLeftAnim = new SpriteAnimator(walkLeftSprites, spriteRenderer);
         walkRightAnim = new SpriteAnimator(walkRightSprites, spriteRenderer);
+
+        fallingDownAnim = new SpriteAnimator(fallingDownSprites, spriteRenderer);
+        fallingLeftAnim = new SpriteAnimator(fallingLeftSprites, spriteRenderer);
+        fallingRightAnim = new SpriteAnimator(fallingRightSprites, spriteRenderer);
+
+        SetFacingDirection(defaultDirection);
 
         currentAnim = walkDownAnim;
     }
@@ -63,5 +79,29 @@ public class CharacterAnimator : MonoBehaviour
         wasPreviouslyMoving = IsMoving;
     }
 
+    public void SetFacingDirection(FacingDirection dir)
+    {
+        if (dir == FacingDirection.Right)
+            MoveX = 1;
+        else if (dir == FacingDirection.Left)
+            MoveX = -1;
+        else if (dir == FacingDirection.Up)
+            MoveY = 1;
+        else if (dir == FacingDirection.Down)
+            MoveY = -1;
+    }
 
+    public FacingDirection DefaultDirection
+    {
+        get => defaultDirection;
+    }
+
+}
+
+public enum FacingDirection
+{
+    Up,
+    Down,
+    Left,
+    Right
 }

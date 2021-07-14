@@ -19,8 +19,8 @@ TagManager:
   - LongGrass
   - Jumpable
   - Interactable
-  - 
-  - 
+  - FoV
+  - Portal
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 466004653
+    locked: 0
+  - name: Battle
+    uniqueID: 85591287
     locked: 0

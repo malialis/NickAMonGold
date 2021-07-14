@@ -2,52 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using NickAMon.Controller;
 
-public class Ledges : MonoBehaviour
+public class Ledges : MonoBehaviour, Interactable
 {    
-    public Vector3 playerChange;
-    [SerializeField] private PlayerController playerController;
-    /*
-    public bool needText;
-    public string placeName;
-    public GameObject text;
-    public Text placeText;
-
-    */
-
+    [SerializeField] private Vector3 playerChange;
+    //[SerializeField] private PlayerController playerController;
+    [SerializeField] private float durationOfFall;
+    
     private void Start()
     {
-        playerController.OnEncounteredLedge += JumpDirection;
+       // playerController.OnEncounteredLedge += JumpDirection;
     }
-    private void OnTriggerEnter2D(Collider2D other)
+
+    public void Interact(Transform initiator)
     {
-        Debug.Log("Player is entering me");
-        if (other.CompareTag("Player"))
-        {    
-            other.transform.position += playerChange;
-            Debug.Log("Player is entering me");
-           /*
-            if (needText)
-            {
-                StartCoroutine(PlaceNameCoroutine());
-            }
-           */
-        }
+        StartCoroutine(SmoothJumpDown(initiator));
+
     }
+
+
 
     public void JumpDirection()
     {
-        playerController.transform.position += playerChange;
+       // playerController.transform.position += playerChange;
     }
 
-/*
-    private IEnumerator PlaceNameCoroutine()
+    IEnumerator SmoothJumpDown(Transform initiator)
     {
-        text.SetActive(true);
-        placeText.text = placeName;
-        yield return new WaitForSeconds(4f);
-        text.SetActive(false);
+        float time = 0;
+        Vector3 startPosition = transform.position;
+
+        while (time < durationOfFall)
+        {
+            initiator.position = Vector3.Lerp(startPosition, playerChange, time / durationOfFall);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        initiator.position = playerChange;
     }
-   */     
+
+
+
 }

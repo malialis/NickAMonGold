@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NickAMon.Controller;
+
 
 public class BuddyController : MonoBehaviour
 {

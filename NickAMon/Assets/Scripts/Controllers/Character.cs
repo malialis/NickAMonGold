@@ -7,6 +7,9 @@ public class Character : MonoBehaviour
 {
     private CharacterAnimator animator;
     public bool IsMoving { get; private set; }
+    public float OffsetY { get; private set; } = 0.3f;
+
+    [Range(1f, 15f)]
     [SerializeField] private float moveSpeed;
 
     public event Action OnEncountered;
@@ -15,6 +18,7 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<CharacterAnimator>();
+        SetPositionAndSnapToTile(transform.position);
     }
 
     public IEnumerator Move(Vector2 moveVector, Action OnMoveOver = null)
@@ -30,6 +34,7 @@ public class Character : MonoBehaviour
             yield break;
 
         IsMoving = true;
+        animator.IsMoving = true;
 
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
@@ -39,6 +44,7 @@ public class Character : MonoBehaviour
         transform.position = targetPos;
 
         IsMoving = false;
+        yield return StandStill();
 
         OnMoveOver?.Invoke();        
     }
@@ -56,7 +62,7 @@ public class Character : MonoBehaviour
 
     public void HandleUpdate()
     {
-        animator.IsMoving = IsMoving;
+        //animator.IsMoving = IsMoving;
     }
 
     private bool IsPathClear(Vector3 targetPos)
@@ -79,14 +85,33 @@ public class Character : MonoBehaviour
         if(xdiff == 0 || ydiff == 0)
         {
             animator.MoveX = Mathf.Clamp(xdiff, -1f, 1f);
-            animator.MoveX = Mathf.Clamp(ydiff, -1f, 1f);
+            animator.MoveY = Mathf.Clamp(ydiff, -1f, 1f);
         }
         else
         {
             Debug.Log("You can not look diagonally");
         }
     }
-    
+
+    private IEnumerator StandStill()
+    {
+        Vector3 myPosition = this.transform.position;
+        yield return new WaitForSeconds(.1f);
+
+        if (myPosition == transform.position)
+        {
+            animator.IsMoving = false;
+        }
+    }
+
+    public void SetPositionAndSnapToTile(Vector2 pos)
+    {
+        pos.x = Mathf.Floor(pos.x) + 0.5f;
+        pos.y = Mathf.Floor(pos.y) + 0.5f + OffsetY;
+
+        transform.position = pos;
+    }
+
 }
 
 /*

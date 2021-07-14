@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 111968615}
   m_Layer: 8
   m_Name: Buddy
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,13 +98,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkDownSprites:
-  - {fileID: 0}
+  - {fileID: -3224369562442983413, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 3539240215915636019, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 460749220159232212, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 3539240215915636019, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
   walkUpSprites:
-  - {fileID: 0}
+  - {fileID: 3726614898442041650, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: -6583889755929277831, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 5235690559624261682, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: -6583889755929277831, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
   walkLeftSprites:
-  - {fileID: 0}
+  - {fileID: 7500800590896842695, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: -3936439066314169950, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 2696418320743090313, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: -3936439066314169950, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
   walkRightSprites:
-  - {fileID: 0}
+  - {fileID: -7703277234774432832, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 5965817273259663579, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: -9008831791899302225, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  - {fileID: 5965817273259663579, guid: aec1942eaabbe45c784a03a87e473188, type: 3}
+  defaultDirection: 1
+  fallingDownSprites: []
+  fallingRightSprites: []
+  fallingLeftSprites: []
 --- !u!114 &1321676389675603710
 MonoBehaviour:
   m_ObjectHideFlags: 0

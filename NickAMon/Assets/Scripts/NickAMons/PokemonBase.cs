@@ -10,14 +10,18 @@ public class PokemonBase : ScriptableObject
     [TextArea]
     [SerializeField] private string description;
 
+    [Header("Pokemon Sprites")]
     [SerializeField] Sprite frontSprite;
     [SerializeField] Sprite backSprite;
     [SerializeField] Sprite iconSprite;
 
+    [Header("Pokemon Type")]
     [SerializeField] PokemonType type01;
     [SerializeField] PokemonType type02;
 
     //base states
+    [Header("Base Stats")]
+    [Tooltip("This is the pokemons base stats")]
     [SerializeField] int maxHP;
     [SerializeField] int attack;
     [SerializeField] int defense;
@@ -25,7 +29,58 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int spDefense;
     [SerializeField] int speed;
 
+    [Header("Exp Stats and rates")]
+    [SerializeField] int expYield;
+    [SerializeField] GrowthRate growthRate;
+    [SerializeField] int catchRate = 255;
+    [SerializeField] int statusBonus;
+
+    [Header("Moves")]
     [SerializeField] List<LearnableMove> learnableMoves;
+
+    public static int MaxNumberOfMoves { get; set; } = 4;
+
+    public int GetExpForLevel(int level)
+    {
+        if (growthRate == GrowthRate.Fast)
+        {
+            return 4 * (level * level * level) / 5;
+        }
+        else if (growthRate == GrowthRate.MediumFast)
+        {
+            return level * level * level;
+        }
+        else if (growthRate == GrowthRate.MediumSlow)
+        {
+            return 6 * (level * level * level) / 5 - 15 * (level * level) + 100 * level - 140;
+        }
+        else if (growthRate == GrowthRate.Slow)
+        {
+            return 5 * (level * level * level) / 4;
+        }
+        else if (growthRate == GrowthRate.Erractic)
+        {
+            return GetErractic(level);
+        }
+        return -1;
+    }
+
+    public int GetErractic(int level)
+    {
+        if (level <= 15)
+        {
+            return Mathf.FloorToInt(Mathf.Pow(level, 3) * ((Mathf.Floor((level + 1) / 3) + 24) / 50));
+        }
+        else if (level >= 15 && level <= 36)
+        {
+            return Mathf.FloorToInt(Mathf.Pow(level, 3) * ((level + 14) / 50));
+        }
+        else
+        {
+            return Mathf.FloorToInt(Mathf.Pow(level, 3) * ((Mathf.Floor(level / 2) + 32) / 50));
+        }
+    }
+
 
     #region properties
 
@@ -99,6 +154,15 @@ public class PokemonBase : ScriptableObject
         get { return learnableMoves; }
     }
 
+    public int CatchRate
+    {
+        get { return catchRate; }
+    }
+
+    public int ExpYield => expYield;
+
+    public GrowthRate GrowthRate => growthRate;
+
     #endregion
 
 
@@ -142,7 +206,8 @@ public enum PokemonType
     Water,
     Dark,
     Steel,
-    Legendary
+    Legendary,
+    Fairy
 }
 
 public enum Stat
@@ -156,6 +221,16 @@ public enum Stat
     //these are for boosts for MoveAccuracy
     Accuracy,
     Evasion
+}
+
+public enum GrowthRate
+{
+    Fast,
+    MediumFast,
+    MediumSlow,
+    Slow,
+    Erractic
+
 }
 
 public class TypeChart
