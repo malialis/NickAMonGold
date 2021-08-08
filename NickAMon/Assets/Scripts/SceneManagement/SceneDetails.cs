@@ -29,7 +29,7 @@ public class SceneDetails : MonoBehaviour
                 {
                     if(!connectedScenes.Contains(scene) && scene != this)
                     {
-
+                        scene.UnLoadScene();
                     }
                 }
             }
@@ -43,6 +43,15 @@ public class SceneDetails : MonoBehaviour
         {
             SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
             IsLoaded = true;
+        }
+    }
+
+    public void UnLoadScene()
+    {
+        if (IsLoaded)
+        {
+            SceneManager.UnloadSceneAsync(gameObject.name);
+            IsLoaded = false;
         }
     }
 
