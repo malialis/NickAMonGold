@@ -21,7 +21,7 @@ public class Portal : MonoBehaviour, IPlayerTriggerable
 
     public void OnPlayerTriggered(PlayerController player)
     {
-        Debug.Log("Player entered the portal");
+        Debug.Log("Player entered the portal " + gameObject.name);
         this.player = player;
         StartCoroutine(SwitchScene());
     }
@@ -30,16 +30,20 @@ public class Portal : MonoBehaviour, IPlayerTriggerable
     {
         DontDestroyOnLoad(gameObject);
         GameController.Instance.PauseGame(true);
-        yield return new WaitForSeconds(.1f);
+        Debug.Log("Portal is pausing...");
+        
         yield return fader.FadeIn(0.5f);
 
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
+
         var destinationPortal = FindObjectsOfType<Portal>().First(x => x != this && x.destinationPortal == this.destinationPortal);
         player.Character.SetPositionAndSnapToTile(destinationPortal.SpawnPoint.position);
 
-        yield return fader.FadeOut(0.5f);
         GameController.Instance.PauseGame(false);
-        
+        Debug.Log("I am not paused no more");
+
+        yield return fader.FadeOut(0.5f);
+
         Destroy(gameObject);
     }
 

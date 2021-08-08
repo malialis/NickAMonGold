@@ -21,6 +21,7 @@ public class Fader : MonoBehaviour
     public IEnumerator FadeOut(float time)
     {
         yield return image.DOFade(0f, time).WaitForCompletion();
+        Debug.Log("I am done fading out.");
     }
 
 }

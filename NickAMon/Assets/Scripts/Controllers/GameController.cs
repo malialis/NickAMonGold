@@ -30,6 +30,9 @@ public class GameController : MonoBehaviour
 
     private GameState stateBeforePause;
 
+    public SceneDetails CurrentScene { get; private set; }
+    public SceneDetails PreviousScene { get; private set; }
+
     private TrainerController trainer;
     public static GameController Instance { get; private set; }
     public BuddyController Buddy { get => buddy; set => buddy = value; }
@@ -128,11 +131,19 @@ public class GameController : MonoBehaviour
         {
             stateBeforePause = state;
             state = GameState.Paused;
+            Debug.Log("I am paused now mate");
         }
-        else
+        else 
         {
-            state = stateBeforePause;
+            //state = stateBeforePause;
+            state = GameState.FreeRoam;
         }
+    }
+
+    public void SetCurrentScene(SceneDetails currentScene)
+    {
+        PreviousScene = CurrentScene;
+        CurrentScene = currentScene;
     }
 
 
