@@ -3078,7 +3078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogBox: {fileID: 5458259443411879171}
   dialogText: {fileID: 5458259442417405095}
-  lettersPerSecond: 34
+  lettersPerSecond: 44
 --- !u!114 &5458259443479432278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3704,6 +3704,10 @@ PrefabInstance:
     - target: {fileID: 6879918793685085168, guid: ff5c97d22fbe7430b91cb9564e5ed6cf, type: 3}
       propertyPath: m_Name
       value: ThePlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879918793685085168, guid: ff5c97d22fbe7430b91cb9564e5ed6cf, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff5c97d22fbe7430b91cb9564e5ed6cf, type: 3}

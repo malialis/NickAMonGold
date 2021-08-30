@@ -4160,7 +4160,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1698227002}
   - component: {fileID: 1698227001}
-  - component: {fileID: 1698227000}
   m_Layer: 0
   m_Name: MapArea
   m_TagString: Untagged
@@ -4168,33 +4167,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1698227000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698226999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fbabff275e704621902ca9fee24136b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wildPokemons:
-  - _base: {fileID: 11400000, guid: 3cae4add50d6a4867884673e65956736, type: 2}
-    level: 2
-  - _base: {fileID: 11400000, guid: 908fc6640d10b419480d3e39d556eaf0, type: 2}
-    level: 3
-  - _base: {fileID: 11400000, guid: 1b3a683eecfc14e04879febeabb43600, type: 2}
-    level: 3
-  - _base: {fileID: 11400000, guid: b7a30825a6eb841b0b2e476b180008a5, type: 2}
-    level: 3
-  - _base: {fileID: 11400000, guid: 0194929bc10bd4a4eb92c496ac716712, type: 2}
-    level: 3
-  - _base: {fileID: 11400000, guid: 2f7d016644b794c038b37be38148699f, type: 2}
-    level: 3
-  - _base: {fileID: 11400000, guid: 7c4417e6fc4e94013a5a7959ef05febd, type: 2}
-    level: 3
 --- !u!156049354 &1698227001
 Grid:
   m_ObjectHideFlags: 0

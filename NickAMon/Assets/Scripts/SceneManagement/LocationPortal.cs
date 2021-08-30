@@ -1,12 +1,12 @@
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour, IPlayerTriggerable
+public class LocationPortal : MonoBehaviour, IPlayerTriggerable
 {
-    [SerializeField] private string sceneToLoad;
+    //telelports the player to a different position without swaping scenes.
+    
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private DestinationIdentifier destinationPortal;
 
@@ -24,44 +24,24 @@ public class Portal : MonoBehaviour, IPlayerTriggerable
         Debug.Log("Player entered the portal " + gameObject.name);
         this.player = player;
         player.Character.Animator.IsMoving = false;
-        StartCoroutine(SwitchScene());
+        StartCoroutine(Teleporting());
     }
 
-    private IEnumerator SwitchScene()
+    private IEnumerator Teleporting()
     {
-        DontDestroyOnLoad(gameObject);
         GameController.Instance.PauseGame(true);
         Debug.Log("Portal is pausing...");
-        
         yield return fader.FadeIn(0.5f);
-
-        yield return SceneManager.LoadSceneAsync(sceneToLoad);
-
-        var destinationPortal = FindObjectsOfType<Portal>().First(x => x != this && x.destinationPortal == this.destinationPortal);
+        
+        var destinationPortal = FindObjectsOfType<LocationPortal>().First(x => x != this && x.destinationPortal == this.destinationPortal);       
         player.Character.SetPositionAndSnapToTile(destinationPortal.SpawnPoint.position);
 
         GameController.Instance.PauseGame(false);
         Debug.Log("I am not paused no more");
-
         yield return fader.FadeOut(0.5f);
 
-        Destroy(gameObject);
     }
 
     public Transform SpawnPoint => spawnPoint;
 
-
-}
-
-public enum DestinationIdentifier
-{
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    H,
-    I
 }
